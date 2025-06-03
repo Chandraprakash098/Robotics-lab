@@ -133,9 +133,9 @@ const Sidebar = () => {
         <NavItem>
           <StyledNavLink to="/students">👥 Students</StyledNavLink>
         </NavItem>
-        <NavItem>
+        {/* <NavItem>
           <StyledNavLink to="/attendance">📝 Attendance</StyledNavLink>
-        </NavItem>
+        </NavItem> */}
         <NavItem>
           <StyledNavLink to="/behavior">📋 Behavior Reports</StyledNavLink>
         </NavItem>
@@ -145,9 +145,9 @@ const Sidebar = () => {
         <NavItem>
           <StyledNavLink to="/mobile-scanner">📱 Mobile Scanner</StyledNavLink>
         </NavItem>
-        <NavItem>
+        {/* <NavItem>
           <StyledNavLink to="/qr-generator">🔗 QR Generator</StyledNavLink>
-        </NavItem>
+        </NavItem> */}
       </NavList>
     </SidebarContainer>
   )
