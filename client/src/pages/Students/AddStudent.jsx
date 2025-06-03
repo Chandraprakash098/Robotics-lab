@@ -1,21 +1,21 @@
-// "use client"
+// "use client";
 
-// import { useState } from "react"
-// import { useNavigate } from "react-router-dom"
-// import { studentAPI } from "../../services/api"
-// import { Button, Input, Select, Card } from "../../styles/GlobalStyles"
-// import styled from "styled-components"
+// import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { studentAPI } from "../../services/api";
+// import { Button, Input, Select, Card } from "../../styles/GlobalStyles";
+// import styled from "styled-components";
 
 // const FormGrid = styled.div`
 //   display: grid;
 //   grid-template-columns: 1fr 1fr;
 //   gap: 20px;
 //   margin-bottom: 20px;
-  
+
 //   @media (max-width: 768px) {
 //     grid-template-columns: 1fr;
 //   }
-// `
+// `;
 
 // const FormSection = styled.div`
 //   h3 {
@@ -24,7 +24,7 @@
 //     border-bottom: 2px solid #007bff;
 //     padding-bottom: 10px;
 //   }
-// `
+// `;
 
 // const ErrorMessage = styled.div`
 //   background: #f8d7da;
@@ -32,7 +32,7 @@
 //   padding: 12px;
 //   border-radius: 4px;
 //   margin-bottom: 16px;
-// `
+// `;
 
 // const AddStudent = () => {
 //   const [formData, setFormData] = useState({
@@ -67,22 +67,22 @@
 //       guardianPhone: "",
 //       guardianEmail: "",
 //     },
-//   })
-//   const [loading, setLoading] = useState(false)
-//   const [error, setError] = useState("")
-//   const navigate = useNavigate()
+//   });
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState("");
+//   const navigate = useNavigate();
 
 //   const handleChange = (e) => {
-//     const { name, value } = e.target
-//     const keys = name.split(".")
+//     const { name, value } = e.target;
+//     const keys = name.split(".");
 
 //     if (keys.length === 1) {
-//       setFormData((prev) => ({ ...prev, [name]: value }))
+//       setFormData((prev) => ({ ...prev, [name]: value }));
 //     } else if (keys.length === 2) {
 //       setFormData((prev) => ({
 //         ...prev,
 //         [keys[0]]: { ...prev[keys[0]], [keys[1]]: value },
-//       }))
+//       }));
 //     } else if (keys.length === 3) {
 //       setFormData((prev) => ({
 //         ...prev,
@@ -90,24 +90,31 @@
 //           ...prev[keys[0]],
 //           [keys[1]]: { ...prev[keys[0]][keys[1]], [keys[2]]: value },
 //         },
-//       }))
+//       }));
 //     }
-//   }
+//   };
 
 //   const handleSubmit = async (e) => {
-//     e.preventDefault()
-//     setLoading(true)
-//     setError("")
+//     e.preventDefault();
+//     setLoading(true);
+//     setError("");
 
 //     try {
-//       await studentAPI.create(formData)
-//       navigate("/students")
+//       const response = await studentAPI.create(formData);
+
+//       // Store the QR code from the response
+//       const { qrCode } = response.data;
+
+//       // Show success message with QR code
+//       alert("Student created successfully! QR code has been generated.");
+
+//       navigate("/students");
 //     } catch (error) {
-//       setError(error.response?.data?.message || "Error creating student")
+//       setError(error.response?.data?.message || "Error creating student");
 //     } finally {
-//       setLoading(false)
+//       setLoading(false);
 //     }
-//   }
+//   };
 
 //   return (
 //     <div>
@@ -288,8 +295,14 @@
 //             </FormGrid>
 //           </FormSection>
 
-//           <div style={{ display: "flex", gap: "10px", justifyContent: "flex-end" }}>
-//             <Button type="button" variant="secondary" onClick={() => navigate("/students")}>
+//           <div
+//             style={{ display: "flex", gap: "10px", justifyContent: "flex-end" }}
+//           >
+//             <Button
+//               type="button"
+//               variant="secondary"
+//               onClick={() => navigate("/students")}
+//             >
 //               Cancel
 //             </Button>
 //             <Button type="submit" disabled={loading}>
@@ -299,31 +312,31 @@
 //         </form>
 //       </Card>
 //     </div>
-//   )
-// }
+//   );
+// };
 
-// export default AddStudent
+// export default AddStudent;
 
 
 
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { studentAPI } from "../../services/api"
-import { Button, Input, Select, Card } from "../../styles/GlobalStyles"
-import styled from "styled-components"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { studentAPI } from "../../services/api";
+import { Button, Input, Select, Card } from "../../styles/GlobalStyles";
+import styled from "styled-components";
 
 const FormGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
   margin-bottom: 20px;
-  
+
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
-`
+`;
 
 const FormSection = styled.div`
   h3 {
@@ -332,7 +345,7 @@ const FormSection = styled.div`
     border-bottom: 2px solid #007bff;
     padding-bottom: 10px;
   }
-`
+`;
 
 const ErrorMessage = styled.div`
   background: #f8d7da;
@@ -340,7 +353,7 @@ const ErrorMessage = styled.div`
   padding: 12px;
   border-radius: 4px;
   margin-bottom: 16px;
-`
+`;
 
 const AddStudent = () => {
   const [formData, setFormData] = useState({
@@ -361,6 +374,8 @@ const AddStudent = () => {
       },
     },
     academicRecords: {
+      class: "",
+      section: "",
       grade: "",
       gpa: "",
     },
@@ -375,22 +390,22 @@ const AddStudent = () => {
       guardianPhone: "",
       guardianEmail: "",
     },
-  })
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
-  const navigate = useNavigate()
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    const keys = name.split(".")
+    const { name, value } = e.target;
+    const keys = name.split(".");
 
     if (keys.length === 1) {
-      setFormData((prev) => ({ ...prev, [name]: value }))
+      setFormData((prev) => ({ ...prev, [name]: value }));
     } else if (keys.length === 2) {
       setFormData((prev) => ({
         ...prev,
         [keys[0]]: { ...prev[keys[0]], [keys[1]]: value },
-      }))
+      }));
     } else if (keys.length === 3) {
       setFormData((prev) => ({
         ...prev,
@@ -398,31 +413,25 @@ const AddStudent = () => {
           ...prev[keys[0]],
           [keys[1]]: { ...prev[keys[0]][keys[1]], [keys[2]]: value },
         },
-      }))
+      }));
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError("")
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
     try {
-      const response = await studentAPI.create(formData)
-
-      // Store the QR code from the response
-      const { qrCode } = response.data
-
-      // Show success message with QR code
-      alert("Student created successfully! QR code has been generated.")
-
-      navigate("/students")
+      const response = await studentAPI.create(formData);
+      alert("Student created successfully! QR code has been generated.");
+      navigate("/students");
     } catch (error) {
-      setError(error.response?.data?.message || "Error creating student")
+      setError(error.response?.data?.message || "Error creating student");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div>
@@ -536,6 +545,22 @@ const AddStudent = () => {
             <FormGrid>
               <Input
                 type="text"
+                name="academicRecords.class"
+                placeholder="Class (e.g., 10, 11, 12)"
+                value={formData.academicRecords.class}
+                onChange={handleChange}
+                required
+              />
+              <Input
+                type="text"
+                name="academicRecords.section"
+                placeholder="Section (e.g., A, B, C)"
+                value={formData.academicRecords.section}
+                onChange={handleChange}
+                required
+              />
+              <Input
+                type="text"
                 name="academicRecords.grade"
                 placeholder="Grade"
                 value={formData.academicRecords.grade}
@@ -603,8 +628,14 @@ const AddStudent = () => {
             </FormGrid>
           </FormSection>
 
-          <div style={{ display: "flex", gap: "10px", justifyContent: "flex-end" }}>
-            <Button type="button" variant="secondary" onClick={() => navigate("/students")}>
+          <div
+            style={{ display: "flex", gap: "10px", justifyContent: "flex-end" }}
+          >
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => navigate("/students")}
+            >
               Cancel
             </Button>
             <Button type="submit" disabled={loading}>
@@ -614,7 +645,7 @@ const AddStudent = () => {
         </form>
       </Card>
     </div>
-  )
-}
+  );
+};
 
-export default AddStudent
+export default AddStudent;
