@@ -690,11 +690,9 @@
 
 // export default Students
 
-
-
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { studentAPI } from "../../services/api"
 import { Button, Input, Table, Badge, Select } from "../../styles/GlobalStyles"
@@ -719,7 +717,22 @@ const SearchContainer = styled.div`
   display: flex;
   gap: 10px;
   flex: 1;
-  max-width: 400px;
+  max-width: 500px; /* Increased max-width for better visibility */
+`
+
+const StyledInput = styled(Input)`
+  width: 100%;
+  height: 40px; /* Increased height for better usability */
+  font-size: 16px; /* Larger font size for visibility */
+  padding: 10px; /* More padding for comfort */
+  color: #333; /* Dark text color for visibility */
+  background-color: #fff; /* White background to ensure text contrast */
+  border: 1px solid #ccc; /* Clear border */
+  border-radius: 4px;
+  &:focus {
+    outline: none;
+    border-color: #007bff; /* Highlight on focus */
+  }
 `
 
 const Students = () => {
@@ -745,7 +758,7 @@ const Students = () => {
         section: sectionFilter,
       }
       if (search) {
-        params.search = search; // Only include search param when button is clicked
+        params.search = search
       }
       const response = await studentAPI.getAll(params)
 
@@ -775,13 +788,13 @@ const Students = () => {
   const handleClassFilter = (e) => {
     setClassFilter(e.target.value)
     setPagination((prev) => ({ ...prev, currentPage: 1 }))
-    fetchStudents() // Trigger fetch on filter change
+    fetchStudents()
   }
 
   const handleSectionFilter = (e) => {
     setSectionFilter(e.target.value)
     setPagination((prev) => ({ ...prev, currentPage: 1 }))
-    fetchStudents() // Trigger fetch on filter change
+    fetchStudents()
   }
 
   const handleDelete = async (id) => {
@@ -815,7 +828,7 @@ const Students = () => {
         <h2>Students</h2>
         <FilterContainer>
           <SearchContainer>
-            <Input
+            <StyledInput
               type="text"
               placeholder="Enter Student ID..."
               value={search}
