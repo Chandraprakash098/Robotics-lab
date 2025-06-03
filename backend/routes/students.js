@@ -35,7 +35,7 @@ router.get('/', auth, studentController.getAllStudents);
 router.get('/:id', auth, studentController.getStudentById);
 router.post('/scan', auth, studentController.getStudentByQR);
 router.put('/:id', auth, studentController.updateStudent);
-router.delete('/:id', auth, adminAuth, studentController.deleteStudent);
+router.delete('/:id', auth, studentController.deleteStudent);
 
 module.exports = router;
 
