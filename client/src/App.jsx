@@ -63,6 +63,7 @@ import Students from "./pages/Students/Students"
 import StudentDetail from "./pages/Students/StudentDetail"
 import StudentQRCard from "./pages/Students/StudentQRCard"
 import AddStudent from "./pages/Students/AddStudent"
+import EditStudent from "./pages/Students/EditStudent"
 import Attendance from "./pages/Attendance/Attendance"
 import BehaviorReports from "./pages/Behavior/BehaviorReports"
 import ParentCommunication from "./pages/Parents/ParentCommunication"
@@ -88,6 +89,7 @@ function App() {
         <Route path="students" element={<Students />} />
         <Route path="students/add" element={<AddStudent />} />
         <Route path="students/:id" element={<StudentDetail />} />
+        <Route path="students/edit/:id" element={<EditStudent />} />
         <Route path="students/:id/card" element={<StudentQRCard />} />
         <Route path="attendance" element={<Attendance />} />
         <Route path="behavior" element={<BehaviorReports />} />
