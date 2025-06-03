@@ -480,9 +480,9 @@ const Students = () => {
                 <Button onClick={() => navigate(`/students/${student._id}`)} style={{ marginRight: "10px" }}>
                   View
                 </Button>
-                <Button variant="danger" onClick={() => handleDelete(student._id)}>
+                {/* <Button variant="danger" onClick={() => handleDelete(student._id)}>
                   Delete
-                </Button>
+                </Button> */}
               </td>
             </tr>
           ))}
