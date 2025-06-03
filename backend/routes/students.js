@@ -38,3 +38,6 @@ router.put('/:id', auth, studentController.updateStudent);
 router.delete('/:id', auth, adminAuth, studentController.deleteStudent);
 
 module.exports = router;
+
+
+

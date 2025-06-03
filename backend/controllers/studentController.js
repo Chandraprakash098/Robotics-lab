@@ -146,6 +146,7 @@
 // };
 
 
+
 const Student = require('../models/Student');
 const QRCode = require('qrcode');
 const { validationResult } = require('express-validator');
@@ -188,11 +189,63 @@ exports.createStudent = async (req, res) => {
   }
 };
 
+// exports.getAllStudents = async (req, res) => {
+//   try {
+//     const { page = 1, limit = 10, search = '', isActive, class: classFilter, section } = req.query;
+    
+//     const query = {};
+//     if (search) {
+//       query.$or = [
+//         { 'personalDetails.firstName': { $regex: search, $options: 'i' } },
+//         { 'personalDetails.lastName': { $regex: search, $options: 'i' } },
+//         { studentId: { $regex: search, $options: 'i' } }
+//       ];
+//     }
+    
+//     if (isActive !== undefined) {
+//       query.isActive = isActive === 'true';
+//     }
+
+//     if (classFilter) {
+//       query['academicRecords.class'] = { $regex: classFilter, $options: 'i' };
+//     }
+
+//     if (section) {
+//       query['academicRecords.section'] = { $regex: section, $options: 'i' };
+//     }
+
+//     const students = await Student.find(query)
+//       .limit(limit * 1)
+//       .skip((page - 1) * limit)
+//       .sort({ createdAt: -1 });
+
+//     const total = await Student.countDocuments(query);
+
+//     res.json({
+//       students,
+//       totalPages: Math.ceil(total / limit),
+//       currentPage: page,
+//       total
+//     });
+//   } catch (error) {
+//     res.status(500).json({ message: 'Server error', error: error.message });
+//   }
+// };
+
+
 exports.getAllStudents = async (req, res) => {
   try {
-    const { page = 1, limit = 10, search = '', isActive, class: classFilter, section } = req.query;
+    const { 
+      page = 1, 
+      limit = 10, 
+      search = '', 
+      isActive, 
+      class: classFilter, 
+      section 
+    } = req.query;
     
     const query = {};
+    
     if (search) {
       query.$or = [
         { 'personalDetails.firstName': { $regex: search, $options: 'i' } },
@@ -206,11 +259,11 @@ exports.getAllStudents = async (req, res) => {
     }
 
     if (classFilter) {
-      query['academicRecords.class'] = { $regex: classFilter, $options: 'i' };
+      query['academicRecords.class'] = classFilter;
     }
 
     if (section) {
-      query['academicRecords.section'] = { $regex: section, $options: 'i' };
+      query['academicRecords.section'] = section;
     }
 
     const students = await Student.find(query)
@@ -299,3 +352,6 @@ exports.deleteStudent = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
+
+
+
