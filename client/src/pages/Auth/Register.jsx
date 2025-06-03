@@ -131,7 +131,7 @@ const Register = () => {
           />
           <Select name="role" value={formData.role} onChange={handleChange}>
             <option value="faculty">Faculty</option>
-            <option value="admin">Admin</option>
+            {/* <option value="admin">Admin</option> */}
           </Select>
           <Button type="submit" disabled={loading} style={{ width: "100%" }}>
             {loading ? "Registering..." : "Register"}
