@@ -164,7 +164,7 @@ const studentSchema = new mongoose.Schema({
     gpa: {
       type: Number,
       min: 0,
-      max: 4
+      
     },
     subjects: [{
       name: String,
