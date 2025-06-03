@@ -159,7 +159,7 @@ const studentSchema = new mongoose.Schema({
     },
     grade: {
       type: String,
-      required: true
+      
     },
     gpa: {
       type: Number,
