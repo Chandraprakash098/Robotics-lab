@@ -313,188 +313,188 @@
 
 
 
-// "use client"
+"use client"
 
-// import { useState, useEffect } from "react"
-// import { Link, useNavigate } from "react-router-dom"
-// import { studentAPI } from "../../services/api"
-// import { Button, Input, Table, Badge, Select } from "../../styles/GlobalStyles"
-// import styled from "styled-components"
+import { useState, useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { studentAPI } from "../../services/api"
+import { Button, Input, Table, Badge, Select } from "../../styles/GlobalStyles"
+import styled from "styled-components"
 
-// const StudentsHeader = styled.div`
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   margin-bottom: 30px;
-//   gap: 20px;
-// `
+const StudentsHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 20px;
+`
 
-// const FilterContainer = styled.div`
-//   display: flex;
-//   gap: 20px;
-//   flex: 1;
-// `
+const FilterContainer = styled.div`
+  display: flex;
+  gap: 20px;
+  flex: 1;
+`
 
-// const SearchContainer = styled.div`
-//   flex: 1;
-//   max-width: 400px;
-// `
+const SearchContainer = styled.div`
+  flex: 1;
+  max-width: 400px;
+`
 
-// const Students = () => {
-//   const [students, setStudents] = useState([])
-//   const [loading, setLoading] = useState(true)
-//   const [search, setSearch] = useState("")
-//   const [classFilter, setClassFilter] = useState("")
-//   const [sectionFilter, setSectionFilter] = useState("")
-//   const [pagination, setPagination] = useState({
-//     currentPage: 1,
-//     totalPages: 1,
-//     total: 0,
-//   })
-//   const navigate = useNavigate()
+const Students = () => {
+  const [students, setStudents] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [search, setSearch] = useState("")
+  const [classFilter, setClassFilter] = useState("")
+  const [sectionFilter, setSectionFilter] = useState("")
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    totalPages: 1,
+    total: 0,
+  })
+  const navigate = useNavigate()
 
-//   useEffect(() => {
-//     fetchStudents()
-//   }, [search, classFilter, sectionFilter, pagination.currentPage])
+  useEffect(() => {
+    fetchStudents()
+  }, [search, classFilter, sectionFilter, pagination.currentPage])
 
-//   const fetchStudents = async () => {
-//     try {
-//       setLoading(true)
-//       const response = await studentAPI.getAll({
-//         page: pagination.currentPage,
-//         limit: 10,
-//         search,
-//         class: classFilter,
-//         section: sectionFilter,
-//       })
+  const fetchStudents = async () => {
+    try {
+      setLoading(true)
+      const response = await studentAPI.getAll({
+        page: pagination.currentPage,
+        limit: 10,
+        search,
+        class: classFilter,
+        section: sectionFilter,
+      })
 
-//       setStudents(response.data.students)
-//       setPagination({
-//         currentPage: response.data.currentPage,
-//         totalPages: response.data.totalPages,
-//         total: response.data.total,
-//       })
-//     } catch (error) {
-//       console.error("Error fetching students:", error)
-//     } finally {
-//       setLoading(false)
-//     }
-//   }
+      setStudents(response.data.students)
+      setPagination({
+        currentPage: response.data.currentPage,
+        totalPages: response.data.totalPages,
+        total: response.data.total,
+      })
+    } catch (error) {
+      console.error("Error fetching students:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
-//   const handleSearch = (e) => {
-//     setSearch(e.target.value)
-//     setPagination((prev) => ({ ...prev, currentPage: 1 }))
-//   }
+  const handleSearch = (e) => {
+    setSearch(e.target.value)
+    setPagination((prev) => ({ ...prev, currentPage: 1 }))
+  }
 
-//   const handleClassFilter = (e) => {
-//     setClassFilter(e.target.value)
-//     setPagination((prev) => ({ ...prev, currentPage: 1 }))
-//   }
+  const handleClassFilter = (e) => {
+    setClassFilter(e.target.value)
+    setPagination((prev) => ({ ...prev, currentPage: 1 }))
+  }
 
-//   const handleSectionFilter = (e) => {
-//     setSectionFilter(e.target.value)
-//     setPagination((prev) => ({ ...prev, currentPage: 1 }))
-//   }
+  const handleSectionFilter = (e) => {
+    setSectionFilter(e.target.value)
+    setPagination((prev) => ({ ...prev, currentPage: 1 }))
+  }
 
-//   const handleDelete = async (id) => {
-//     if (window.confirm("Are you sure you want to deactivate this student?")) {
-//       try {
-//         await studentAPI.delete(id)
-//         fetchStudents()
-//       } catch (error) {
-//         console.error("Error deleting student:", error)
-//       }
-//     }
-//   }
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to deactivate this student?")) {
+      try {
+        await studentAPI.delete(id)
+        fetchStudents()
+      } catch (error) {
+        console.error("Error deleting student:", error)
+      }
+    }
+  }
 
-//   if (loading) {
-//     return <div>Loading students...</div>
-//   }
+  if (loading) {
+    return <div>Loading students...</div>
+  }
 
-//   return (
-//     <div>
-//       <StudentsHeader>
-//         <h2>Students</h2>
-//         <FilterContainer>
-//           <SearchContainer>
-//             <Input type="text" placeholder="Search students..." value={search} onChange={handleSearch} />
-//           </SearchContainer>
-//           <Select value={classFilter} onChange={handleClassFilter}>
-//             <option value="">All Classes</option>
-//             <option value="1">Class 1</option>
-//             <option value="2">Class 2</option>
-//             <option value="3">Class 3</option>
-//             <option value="4">Class 4</option>
-//             <option value="5">Class 5</option>
-//             <option value="6">Class 6</option>
-//             <option value="7">Class 7</option>
-//             <option value="8">Class 8</option>
-//             <option value="9">Class 9</option>
-//             <option value="10">Class 10</option>
-//             <option value="11">Class 11</option>
-//             <option value="12">Class 12</option>
-//           </Select>
-//           <Select value={sectionFilter} onChange={handleSectionFilter}>
-//             <option value="">All Sections</option>
-//             <option value="A">Section A</option>
-//             <option value="B">Section B</option>
-//             <option value="C">Section C</option>
-//             <option value="D">Section D</option>
-//           </Select>
-//         </FilterContainer>
-//         <Link to="/students/add">
-//           <Button>Add Student</Button>
-//         </Link>
-//       </StudentsHeader>
+  return (
+    <div>
+      <StudentsHeader>
+        <h2>Students</h2>
+        <FilterContainer>
+          <SearchContainer>
+            <Input type="text" placeholder="Search students..." value={search} onChange={handleSearch} />
+          </SearchContainer>
+          <Select value={classFilter} onChange={handleClassFilter}>
+            <option value="">All Classes</option>
+            <option value="1">Class 1</option>
+            <option value="2">Class 2</option>
+            <option value="3">Class 3</option>
+            <option value="4">Class 4</option>
+            <option value="5">Class 5</option>
+            <option value="6">Class 6</option>
+            <option value="7">Class 7</option>
+            <option value="8">Class 8</option>
+            <option value="9">Class 9</option>
+            <option value="10">Class 10</option>
+            <option value="11">Class 11</option>
+            <option value="12">Class 12</option>
+          </Select>
+          <Select value={sectionFilter} onChange={handleSectionFilter}>
+            <option value="">All Sections</option>
+            <option value="A">Section A</option>
+            <option value="B">Section B</option>
+            <option value="C">Section C</option>
+            <option value="D">Section D</option>
+          </Select>
+        </FilterContainer>
+        <Link to="/students/add">
+          <Button>Add Student</Button>
+        </Link>
+      </StudentsHeader>
 
-//       <Table>
-//         <thead>
-//           <tr>
-//             <th>Student ID</th>
-//             <th>Name</th>
-//             <th>Class</th>
-//             <th>Section</th>
-//             <th>Email</th>
-//             <th>Grade</th>
-//             <th>Status</th>
-//             <th>Actions</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {students.map((student) => (
-//             <tr key={student._id}>
-//               <td>{student.studentId}</td>
-//               <td>
-//                 {student.personalDetails.firstName} {student.personalDetails.lastName}
-//               </td>
-//               <td>{student.academicRecords.class}</td>
-//               <td>{student.academicRecords.section}</td>
-//               <td>{student.personalDetails.email}</td>
-//               <td>{student.academicRecords.grade}</td>
-//               <td>
-//                 <Badge variant={student.isActive ? "success" : "danger"}>
-//                   {student.isActive ? "Active" : "Inactive"}
-//                 </Badge>
-//               </td>
-//               <td>
-//                 <Button onClick={() => navigate(`/students/${student._id}`)} style={{ marginRight: "10px" }}>
-//                   View
-//                 </Button>
-//                 {/* <Button variant="danger" onClick={() => handleDelete(student._id)}>
-//                   Delete
-//                 </Button> */}
-//               </td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </Table>
+      <Table>
+        <thead>
+          <tr>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th>Class</th>
+            <th>Section</th>
+            <th>Email</th>
+            <th>Grade</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {students.map((student) => (
+            <tr key={student._id}>
+              <td>{student.studentId}</td>
+              <td>
+                {student.personalDetails.firstName} {student.personalDetails.lastName}
+              </td>
+              <td>{student.academicRecords.class}</td>
+              <td>{student.academicRecords.section}</td>
+              <td>{student.personalDetails.email}</td>
+              <td>{student.academicRecords.grade}</td>
+              <td>
+                <Badge variant={student.isActive ? "success" : "danger"}>
+                  {student.isActive ? "Active" : "Inactive"}
+                </Badge>
+              </td>
+              <td>
+                <Button onClick={() => navigate(`/students/${student._id}`)} style={{ marginRight: "10px" }}>
+                  View
+                </Button>
+                {/* <Button variant="danger" onClick={() => handleDelete(student._id)}>
+                  Delete
+                </Button> */}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
 
-//       {students.length === 0 && <p style={{ textAlign: "center", marginTop: "20px" }}>No students found</p>}
-//     </div>
-//   )
-// }
+      {students.length === 0 && <p style={{ textAlign: "center", marginTop: "20px" }}>No students found</p>}
+    </div>
+  )
+}
 
-// export default Students
+export default Students
 
 
 // "use client"
@@ -690,228 +690,4 @@
 
 // export default Students
 
-"use client"
 
-import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { studentAPI } from "../../services/api"
-import { Button, Input, Table, Badge, Select } from "../../styles/GlobalStyles"
-import styled from "styled-components"
-
-const StudentsHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-  gap: 20px;
-`
-
-const FilterContainer = styled.div`
-  display: flex;
-  gap: 20px;
-  flex: 1;
-  align-items: center;
-`
-
-const SearchContainer = styled.div`
-  display: flex;
-  gap: 10px;
-  flex: 1;
-  max-width: 500px; /* Increased max-width for better visibility */
-`
-
-const StyledInput = styled(Input)`
-  width: 100%;
-  height: 40px; /* Increased height for better usability */
-  font-size: 16px; /* Larger font size for visibility */
-  padding: 10px; /* More padding for comfort */
-  color: #333; /* Dark text color for visibility */
-  background-color: #fff; /* White background to ensure text contrast */
-  border: 1px solid #ccc; /* Clear border */
-  border-radius: 4px;
-  &:focus {
-    outline: none;
-    border-color: #007bff; /* Highlight on focus */
-  }
-`
-
-const Students = () => {
-  const [students, setStudents] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [search, setSearch] = useState("")
-  const [classFilter, setClassFilter] = useState("")
-  const [sectionFilter, setSectionFilter] = useState("")
-  const [pagination, setPagination] = useState({
-    currentPage: 1,
-    totalPages: 1,
-    total: 0,
-  })
-  const navigate = useNavigate()
-
-  const fetchStudents = async () => {
-    try {
-      setLoading(true)
-      const params = {
-        page: pagination.currentPage,
-        limit: 10,
-        class: classFilter,
-        section: sectionFilter,
-      }
-      if (search) {
-        params.search = search
-      }
-      const response = await studentAPI.getAll(params)
-
-      setStudents(response.data.students)
-      setPagination({
-        currentPage: response.data.currentPage,
-        totalPages: response.data.totalPages,
-        total: response.data.total,
-      })
-    } catch (error) {
-      console.error("Error fetching students:", error)
-      alert("Failed to fetch students. Please try again.")
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const handleSearchInput = (e) => {
-    setSearch(e.target.value)
-  }
-
-  const handleSearchSubmit = () => {
-    setPagination((prev) => ({ ...prev, currentPage: 1 }))
-    fetchStudents()
-  }
-
-  const handleClassFilter = (e) => {
-    setClassFilter(e.target.value)
-    setPagination((prev) => ({ ...prev, currentPage: 1 }))
-    fetchStudents()
-  }
-
-  const handleSectionFilter = (e) => {
-    setSectionFilter(e.target.value)
-    setPagination((prev) => ({ ...prev, currentPage: 1 }))
-    fetchStudents()
-  }
-
-  const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to deactivate this student?")) {
-      try {
-        await studentAPI.delete(id)
-        alert("Student deactivated successfully")
-        fetchStudents()
-      } catch (error) {
-        console.error("Error deleting student:", error)
-        if (error.response && error.response.status === 403) {
-          alert("You do not have permission to delete students. Please contact an administrator.")
-        } else {
-          alert("Failed to deactivate student. Please try again.")
-        }
-      }
-    }
-  }
-
-  const handleEdit = (id) => {
-    navigate(`/students/edit/${id}`)
-  }
-
-  if (loading) {
-    return <div>Loading students...</div>
-  }
-
-  return (
-    <div>
-      <StudentsHeader>
-        <h2>Students</h2>
-        <FilterContainer>
-          <SearchContainer>
-            <StyledInput
-              type="text"
-              placeholder="Enter Student ID..."
-              value={search}
-              onChange={handleSearchInput}
-            />
-            <Button onClick={handleSearchSubmit}>Search</Button>
-          </SearchContainer>
-          <Select value={classFilter} onChange={handleClassFilter}>
-            <option value="">All Classes</option>
-            <option value="1">Class 1</option>
-            <option value="2">Class 2</option>
-            <option value="3">Class 3</option>
-            <option value="4">Class 4</option>
-            <option value="5">Class 5</option>
-            <option value="6">Class 6</option>
-            <option value="7">Class 7</option>
-            <option value="8">Class 8</option>
-            <option value="9">Class 9</option>
-            <option value="10">Class 10</option>
-            <option value="11">Class 11</option>
-            <option value="12">Class 12</option>
-          </Select>
-          <Select value={sectionFilter} onChange={handleSectionFilter}>
-            <option value="">All Sections</option>
-            <option value="A">Section A</option>
-            <option value="B">Section B</option>
-            <option value="C">Section C</option>
-            <option value="D">Section D</option>
-          </Select>
-        </FilterContainer>
-        <Link to="/students/add">
-          <Button>Add Student</Button>
-        </Link>
-      </StudentsHeader>
-
-      <Table>
-        <thead>
-          <tr>
-            <th>Student ID</th>
-            <th>Name</th>
-            <th>Class</th>
-            <th>Section</th>
-            <th>Email</th>
-            <th>Grade</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {students.map((student) => (
-            <tr key={student._id}>
-              <td>{student.studentId}</td>
-              <td>
-                {student.personalDetails.firstName} {student.personalDetails.lastName}
-              </td>
-              <td>{student.academicRecords.class}</td>
-              <td>{student.academicRecords.section}</td>
-              <td>{student.personalDetails.email}</td>
-              <td>{student.academicRecords.grade}</td>
-              <td>
-                <Badge variant={student.isActive ? "success" : "danger"}>
-                  {student.isActive ? "Active" : "Inactive"}
-                </Badge>
-              </td>
-              <td>
-                <Button onClick={() => navigate(`/students/${student._id}`)} style={{ marginRight: "10px" }}>
-                  View
-                </Button>
-                <Button onClick={() => handleEdit(student._id)} style={{ marginRight: "10px" }}>
-                  Edit
-                </Button>
-                <Button variant="danger" onClick={() => handleDelete(student._id)}>
-                  Delete
-                </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-
-      {students.length === 0 && <p style={{ textAlign: "center", marginTop: "20px" }}>No students found</p>}
-    </div>
-  )
-}
-
-export default Students
