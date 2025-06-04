@@ -5,13 +5,13 @@ exports.recordAttendance = async (req, res) => {
   try {
     const { studentId, labSession, timeIn, notes } = req.body;
     
-    // Check if student exists
+   
     const student = await Student.findById(studentId);
     if (!student) {
       return res.status(404).json({ message: 'Student not found' });
     }
 
-    // Check if attendance already recorded for today
+    
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     

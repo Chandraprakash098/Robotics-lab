@@ -3,9 +3,9 @@ const Student = require('../models/Student');
 const nodemailer = require('nodemailer');
 
 
-// Configure email transporter (you'll need to set up your email service)
+
 const transporter = nodemailer.createTransport({
-  service: 'gmail', // or your email service
+  service: 'gmail', 
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
@@ -21,7 +21,7 @@ exports.sendCommunication = async (req, res) => {
       return res.status(404).json({ message: 'Student not found' });
     }
 
-    // Prepare recipients based on recipientType
+    
     const recipients = [];
     const { parentContact } = student;
     
@@ -55,7 +55,7 @@ exports.sendCommunication = async (req, res) => {
       }
     }
 
-    // Create communication record
+   
     const communication = new ParentCommunication({
       studentId,
       communicationType,
@@ -66,7 +66,7 @@ exports.sendCommunication = async (req, res) => {
       sentBy: req.user.userId
     });
 
-    // Send emails if communication type is email
+    
     if (communicationType === 'email' && recipients.length > 0) {
       const emailPromises = recipients.map(recipient => {
         if (recipient.email) {
